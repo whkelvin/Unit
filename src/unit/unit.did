@@ -1,0 +1,12 @@
+type Expense = record {
+  "name": text;
+  "description": text;
+  "amount": nat64;
+  "date": text;
+}
+
+service : {
+    "greet": (text) -> (text) query;
+    "addExpense": (Expense) -> ();
+    "getExpenses": (text) -> (vec Expense) query;
+}  

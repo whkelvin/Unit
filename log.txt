@@ -1,0 +1,6 @@
+Nov 28 21:29:04.359 INFO Starting webserver for /_/, version: 0.8.4
+Nov 28 21:29:04.359 INFO binding to: 127.0.0.1:38843, version: 0.8.4
+Nov 28 21:42:42.593 INFO Stopping the replica..., version: 0.8.4
+Nov 28 21:42:42.627 INFO Stopped., version: 0.8.4
+Nov 28 21:42:42.627 INFO Stopping icx-proxy..., version: 0.8.4
+Nov 28 21:42:42.627 INFO Stopped., version: 0.8.4
