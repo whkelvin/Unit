@@ -1,8 +1,10 @@
-use ic_cdk::export::{candid::{CandidType, Deserialize}, Principal};
+use ic_cdk::export::{candid::{CandidType, Deserialize}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
 use std::collections::BTreeMap;
 use std::vec::Vec;
+
+type ExpensesStorage = BTreeMap<String, Vec<Expense>>;
 
 #[ic_cdk_macros::query]
 fn greet(name: String) -> String {
@@ -19,11 +21,18 @@ struct Expense {
 
 #[query(name = "getExpenses")]
 fn get_expenses(date: String) -> Vec<Expense> {
+
     ic_cdk::print(format!("hello {}", date));
-    return Vec::new();
+    let expenses_storage = storage::get::<ExpensesStorage>();
+
+    expenses_storage.get(&date).cloned().unwrap_or_else(|| Vec::new())
 }
 
 #[update(name = "addExpense")]
 fn add_expense(expense: Expense) -> () {
-    ic_cdk::print(format!("hello {}", expense.date));
+    let date = expense.date.clone();
+    let expenses_storage = storage::get_mut::<ExpensesStorage>();
+    let mut list: Vec<Expense> = expenses_storage.get_mut(&date).cloned().unwrap_or_else(|| Vec::new());
+    list.push(expense);
+    expenses_storage.insert(date, list);
 }
